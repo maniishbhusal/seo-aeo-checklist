@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO + AEO Checklist for Founders</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: #2a2a2a;
+    --accent: #c8f135;
+    --accent2: #f1c835;
+    --accent3: #35c8f1;
+    --text: #f0ede6;
+    --muted: #6b6b6b;
+    --done-bg: #1a2a0a;
+    --done-border: #3d6e0a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+  }
+
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    opacity: 0.5;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 56px;
+  }
+
+  .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin: 32px 0 48px;
+    background: var(--surface2);
+    border-radius: 2px;
+    height: 3px;
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .count-done { color: var(--accent); }
+
+  /* Section */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .badge-critical { color: #f13535; border-color: #f1353533; background: #f1353511; }
+  .badge-important { color: var(--accent2); border-color: #f1c83533; background: #f1c83511; }
+  .badge-ai { color: var(--accent3); border-color: #35c8f133; background: #35c8f111; }
+  .badge-growth { color: var(--accent); border-color: #c8f13533; background: #c8f13511; }
+
+  /* Checklist items */
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--surface);
+    user-select: none;
+  }
+
+  .item:hover {
+    border-color: var(--border);
+    background: var(--surface2);
+  }
+
+  .item.done {
+    background: var(--done-bg);
+    border-color: var(--done-border);
+  }
+
+  .item.done .item-text { color: var(--muted); text-decoration: line-through; text-decoration-color: #3d6e0a; }
+  .item.done .item-note { opacity: 0.4; }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .item.done .checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checkmark {
+    display: none;
+    color: #0d0d0d;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .item.done .checkmark { display: block; }
+
+  .item-content { flex: 1; }
+
+  .item-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+
+  .item-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .item-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Reset button */
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0d0d0d;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover { opacity: 0.85; color: #0d0d0d; }
+
+  /* Footer note */
+  .footer-note {
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .footer-note strong { color: var(--accent3); font-weight: 500; }
+
+  /* Celebration */
+  .celebration {
+    display: none;
+    text-align: center;
+    padding: 32px;
+    background: var(--done-bg);
+    border: 1px solid var(--done-border);
+    border-radius: 12px;
+    margin-top: 32px;
+  }
+
+  .celebration.show { display: block; }
+
+  .celebration h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+
+  .celebration p { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="container">
+
+  <div class="header">
+    <div class="label">For Builders</div>
+    <h1>SEO + <em>AEO</em><br>Founder Checklist</h1>
+    <p class="subtitle">Not just Google rankings. AI discovery is the new visibility layer. Every item here is something most founders skip and then regret.</p>
+  </div>
+
+  <div class="progress-label">
+    <span>Progress</span>
+    <span><span class="count-done" id="doneCount">0</span> / <span id="totalCount">0</span> completed</span>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+
+  <div id="checklist"></div>
+
+  <div class="footer-note">
+    <strong>Why AEO matters now:</strong> ChatGPT, Perplexity, Claude, and other AI assistants are pulling from the open web to answer user questions. If your product isn't structured for machine-readability — proper metadata, <code>llms.txt</code>, clear entity definitions — you're invisible to an entire discovery layer that's growing daily.
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="resetAll()">Reset All</button>
+    <button class="btn btn-primary" onclick="copyProgress()">Copy Progress</button>
+  </div>
+
+  <div class="celebration" id="celebration">
+    <h2>🎉 Ship-ready.</h2>
+    <p>You've done what most founders never do. Your product is discoverable — by humans AND by AI.</p>
+  </div>
+
+</div>
+
+<script>
+const sections = [
+  {
+    icon: "🔧",
+    title: "Foundation & Indexing",
+    badge: "CRITICAL",
+    badgeClass: "badge-critical",
+    items: [
+      { text: "Submit to Google Search Console", note: "Verify ownership via DNS TXT record or HTML tag. This is your real-time window into how Google sees your site.", tag: "DAY 1" },
+      { text: "Submit to Bing Webmaster Tools", note: "Often skipped. Bing powers Copilot search — increasingly important for AI discovery.", tag: "DAY 1" },
+      { text: "Generate and submit sitemap.xml", note: "Use /sitemap.xml and submit the URL in Search Console. Include all canonical pages, not just the homepage.", tag: "DAY 1" },
+      { text: "Add robots.txt", note: "Allow search engines and AI crawlers. Explicitly allow GPTBot, ClaudeBot, PerplexityBot unless you have a reason to block.", tag: "DAY 1" },
+      { text: "Verify all pages are indexable", note: "Check for accidental noindex tags in meta, stray X-Robots-Tag headers, or Cloudflare blocking crawlers.", tag: "WEEK 1" },
+      { text: "Set canonical tags on all pages", note: "Especially critical if you have /pricing, /pricing/, and /pricing?ref=x all resolving to the same page.", tag: "WEEK 1" },
+    ]
+  },
+  {
+    icon: "📄",
+    title: "On-Page & Technical SEO",
+    badge: "IMPORTANT",
+    badgeClass: "badge-important",
+    items: [
+      { text: "Write a unique <title> for every page", note: "Format: 'Primary Keyword – Brand Name'. Keep under 60 chars. Homepage titles should name what you do, not just your brand.", tag: "WEEK 1" },
+      { text: "Write meta descriptions for all pages", note: "160 chars max. These appear in search results and in AI-generated summaries. Treat them like ad copy.", tag: "WEEK 1" },
+      { text: "Use proper heading hierarchy (H1 → H2 → H3)", note: "One H1 per page. H1 should include your target keyword. It signals page structure to both Google and AI parsers.", tag: "WEEK 1" },
+      { text: "Optimize page load speed (Core Web Vitals)", note: "Use PageSpeed Insights. Target LCP < 2.5s. Lazy load images. Compress assets. This is a ranking signal.", tag: "WEEK 2" },
+      { text: "Make the site mobile-responsive", note: "Google indexes mobile-first. Use responsive design or separate mobile views with correct canonical setup.", tag: "WEEK 1" },
+      { text: "Fix all broken links (404s)", note: "Check Search Console's Coverage report. Broken links bleed crawl budget and damage trust.", tag: "WEEK 2" },
+      { text: "Add alt text to every image", note: "Describe what's in the image. It improves accessibility, image search ranking, and AI parsing of your visual content.", tag: "WEEK 2" },
+      { text: "Set up HTTPS + clean URL structure", note: "No HTTP. No trailing slashes mixing. Consistent URL format. Canonical = https://yourdomain.com/page", tag: "DAY 1" },
+    ]
+  },
+  {
+    icon: "🤖",
+    title: "AI Engine Optimization (AEO)",
+    badge: "AI LAYER",
+    badgeClass: "badge-ai",
+    items: [
+      { text: "Create /llms.txt", note: "A machine-readable file at yourdomain.com/llms.txt that summarizes what your product does, who it's for, and key URLs. LLMs crawling your site use this to understand your entity.", tag: "WEEK 1" },
+      { text: "Add JSON-LD structured data (Schema.org)", note: "At minimum: SoftwareApplication or Product schema. Include name, description, url, category, and pricing. This feeds AI answer boxes and rich results.", tag: "WEEK 1" },
+      { text: "Add FAQ schema to marketing pages", note: "FAQ structured data gives AI systems pre-packaged Q&A to cite. Huge for AEO. Write real questions your customers ask.", tag: "WEEK 2" },
+      { text: "Write content that directly answers questions", note: "AI assistants prefer pages with clear, concise answers near the top. Think 'featured snippet bait.' One question → one clear answer paragraph.", tag: "ONGOING" },
+      { text: "Define your product as a clear entity", note: "Use consistent language everywhere: name, category, use case. If your product is a 'LinkedIn post scheduler for developers', say that exact phrase consistently.", tag: "WEEK 1" },
+      { text: "Build a /glossary or /docs page", note: "Pages that define terms in your niche get cited by AI assistants heavily. Pick 10–20 terms your ICP searches.", tag: "MONTH 1" },
+      { text: "Get listed on product directories", note: "Product Hunt, G2, Capterra, Trustpilot, AlternativeTo. AI systems cross-reference these as trust signals for product entities.", tag: "MONTH 1" },
+    ]
+  },
+  {
+    icon: "✍️",
+    title: "Content & Authority",
+    badge: "GROWTH",
+    badgeClass: "badge-growth",
+    items: [
+      { text: "Create one pillar page per core use case", note: "Long-form (1500+ words), deeply useful, targeting a high-intent keyword. This is your anchor content. Everything else links to it.", tag: "MONTH 1" },
+      { text: "Write comparison pages (You vs Competitors)", note: "'PostDew vs Buffer', 'X vs Y for [audience]'. High-intent traffic. Founders hate doing this. It converts extremely well.", tag: "MONTH 1" },
+      { text: "Write 'best X for Y' landing pages", note: "Example: 'Best LinkedIn post tools for developers'. Captures decision-stage traffic. AI assistants pull from these constantly.", tag: "MONTH 1" },
+      { text: "Add real testimonials with structured markup", note: "Review schema with rating, author, and datePublished. Google and AI assistants use this to assess product credibility.", tag: "MONTH 1" },
+      { text: "Build backlinks from real publications", note: "Guest posts, podcast mentions, directory listings, HARO/Connectively responses. One quality link > 100 spammy ones.", tag: "ONGOING" },
+      { text: "Publish a changelog or blog consistently", note: "Signals to Google that the site is alive. Also gives AI systems new content to index and cite. Weekly is fine.", tag: "ONGOING" },
+    ]
+  },
+  {
+    icon: "📊",
+    title: "Monitoring & Analytics",
+    badge: "ONGOING",
+    badgeClass: "badge-growth",
+    items: [
+      { text: "Set up Google Analytics 4 (or Plausible/Fathom)", note: "Track where traffic comes from. Watch for 'direct' traffic spikes — often AI referrals that don't pass a referrer header.", tag: "DAY 1" },
+      { text: "Monitor Search Console weekly", note: "Check: Impressions, Clicks, Average Position, Coverage errors. Set up email alerts for coverage issues.", tag: "WEEKLY" },
+      { text: "Track keyword rankings", note: "Use Ahrefs, Semrush, or free tools like Google Search Console + Looker Studio. Know where you're moving.", tag: "MONTHLY" },
+      { text: "Set up uptime monitoring", note: "Downtime kills crawl budget and ranking signals. Use UptimeRobot or Better Stack (free tiers available).", tag: "DAY 1" },
+      { text: "Monitor brand mentions across the web", note: "Use Google Alerts for your product name. Know when you're being cited — these are potential link opportunities.", tag: "MONTH 1" },
+    ]
+  }
+];
+
+function renderChecklist() {
+  const saved = JSON.parse(localStorage.getItem('seo-checklist') || '{}');
+  const container = document.getElementById('checklist');
+  container.innerHTML = '';
+  let total = 0;
+
+  sections.forEach((section, si) => {
+    const div = document.createElement('div');
+    div.className = 'section';
+
+    div.innerHTML = `
+      <div class="section-header">
+        <div class="section-icon">${section.icon}</div>
+        <div class="section-title">${section.title}</div>
+        <span class="section-badge ${section.badgeClass}">${section.badge}</span>
+      </div>
+    `;
+
+    section.items.forEach((item, ii) => {
+      const id = `${si}-${ii}`;
+      const done = saved[id] || false;
+      total++;
+
+      const el = document.createElement('div');
+      el.className = `item${done ? ' done' : ''}`;
+      el.innerHTML = `
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="item-content">
+          <div class="item-text">${item.text}</div>
+          <div class="item-note">${item.note}</div>
+        </div>
+        <span class="item-tag">${item.tag}</span>
+      `;
+      el.addEventListener('click', () => toggle(id, el));
+      div.appendChild(el);
+    });
+
+    container.appendChild(div);
+  });
+
+  document.getElementById('totalCount').textContent = total;
+  updateProgress(saved, total);
+}
+
+function toggle(id, el) {
+  const saved = JSON.parse(localStorage.getItem('seo-checklist') || '{}');
+  saved[id] = !saved[id];
+  localStorage.setItem('seo-checklist', JSON.stringify(saved));
+  el.classList.toggle('done', saved[id]);
+  const total = parseInt(document.getElementById('totalCount').textContent);
+  updateProgress(saved, total);
+}
+
+function updateProgress(saved, total) {
+  const done = Object.values(saved).filter(Boolean).length;
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('progressBar').style.width = `${(done / total) * 100}%`;
+  document.getElementById('celebration').classList.toggle('show', done === total);
+}
+
+function resetAll() {
+  if (confirm('Reset all checkboxes?')) {
+    localStorage.removeItem('seo-checklist');
+    renderChecklist();
+  }
+}
+
+function copyProgress() {
+  const saved = JSON.parse(localStorage.getItem('seo-checklist') || '{}');
+  const done = Object.values(saved).filter(Boolean).length;
+  const total = parseInt(document.getElementById('totalCount').textContent);
+  navigator.clipboard.writeText(`SEO + AEO Checklist Progress: ${done}/${total} completed`);
+  alert('Copied to clipboard!');
+}
+
+renderChecklist();
+</script>
+</body>
+</html>
