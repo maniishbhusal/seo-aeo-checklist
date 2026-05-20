@@ -41,7 +41,7 @@ Founders who set this up early are seeing consistent AI-referred traffic. Founde
 
 ## How to Use It
 
-Open `seo-aeo-checklist.html` in any browser. Check off items as you complete them. Progress saves locally in your browser — no account needed.
+Open `index.html` in any browser. Check off items as you complete them. Progress saves locally in your browser — no account needed.
 
 Each item is tagged with a suggested timeline:
 
